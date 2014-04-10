@@ -9,14 +9,16 @@ Types of semantic container with clearly mandated roles can be defined by conven
 Container Vocabulary
 --------------------
 
-A new attribute name is defined `container_type`.  This attribute may be used to indicate that a particualr set of container semantics are being used.
+A new terminology is defined, a `container_type`.  This may be used to indicate that a particular set of container semantics are being used.
 
 It is highly recommended that the 'value' of the container_type attribute is a URI, providing explicit resolution of the associated semantics for named roles and attributes.  `container_type` identifiers may be used to register a new container type and reference associated semantics.
 
-NetCDF containers does not define extended semantics for defined types, it merely provides the mechanism for others to do so.  A `simple` type is defined (hopefully this will be defined by a netCDF containers owned URI in the future. 
+NetCDF semantic containers does not define extended semantics for defined types, it merely provides the mechanism for others to do so.  A `simple` type is defined (hopefully this will be defined by a netCDF semantic containers owned URI in the future). This defines no further controlled semantics attributes.
 
-A new attribute name is defined: `variable_role`.  This attribute enables individual members of the container to take on semantic roles within the file.  The `simple` container type supports only one value for `variable_role`, which is `member`.
+.. A second new terminology is defined: a `member_role`.  This enables individual members of a container to take on semantic roles within the file.  The `simple` container type supports only one value for `member_role`, which is `member`.
 
+
+Communities may define their own `container_type` values and within this scope define a controlled set of semantics for attribute names and values to allow rich semantic content to be provided.
 
 
 

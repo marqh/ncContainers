@@ -11,5 +11,5 @@ Contents:
    semantics
    netcdf3
    netcdf4
-   examples
+   examples/index
 
