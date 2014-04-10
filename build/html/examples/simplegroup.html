@@ -1,0 +1,211 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>5.1. Simple Container &mdash; NetCDF Containers 1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/theme_extras.js"></script>
+    <link rel="top" title="NetCDF Containers 1 documentation" href="../index.html" />
+    <link rel="up" title="5. Example Data Sets" href="index.html" />
+    <link rel="next" title="5.2. Uncertainty" href="uncert.html" />
+    <link rel="prev" title="5. Example Data Sets" href="index.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>NetCDF Containers 1 documentation</span></a></h1>
+        <h2 class="heading"><span>5.1. Simple Container</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">5. Example Data Sets</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="uncert.html">5.2. Uncertainty</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="simple-container">
+<h1>5.1. Simple Container<a class="headerlink" href="#simple-container" title="Permalink to this headline">¶</a></h1>
+<p>This is an example of the degenerate case, where a group in netCDF4 is equivalent to a <cite>simple</cite> semantic container, which is equivalent to a NetCDF3 <cite>simple</cite> container.</p>
+<p>All four of these examples are semantically identical and software should be able to transform data files between the encoding options at will.</p>
+<div class="section" id="semantic-container-netcdf3-classic">
+<h2>5.1.1. Semantic Container NetCDF3 Classic<a class="headerlink" href="#semantic-container-netcdf3-classic" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>netcdf foo {    // example netCDF specification in CDL
+
+dimensions:
+instrument___lat = 10, instrument_lon = 5, time = unlimited
+     model___lat = 17, model_lon = 9
+variables:
+  int instrument ;
+  time(time)
+  int     instrument___lat(instrument___lat), instrument___lon(instrument___lon);
+  int     instrument___rh(time,instrument___lat,instrument___lon);
+
+  instrument___lat:units = "degrees_north";
+  instrument___lon:units = "degrees_east";
+  time:units = "seconds";
+  instrument___rh:_FillValue = -1;
+
+  instrument:measurement_platform = "aircraft" ;
+  instrument:container_type = 'simple' ;
+  instrument:container_members = "instrument___lat instrument___lon instrument___time" ;
+
+  int model ;
+
+  int     model___lat(model___lat), model___lon(model___lon);
+  int     model___rh(time,model_lat,model_lon);
+
+  model___lat:units = "degrees_north";
+  model___lon:units = "degrees_east";
+  model___rh:_FillValue = -1;
+  
+  model:measurement_platform = "global circulation model" ;
+  model:container_type = 'simple' ;
+  model:container_members = "model___lat model___lon model___time" ;
+
+}</pre>
+</div>
+</div>
+<div class="section" id="netcdf4-group">
+<h2>5.1.2. NetCDF4 Group<a class="headerlink" href="#netcdf4-group" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>netcdf foo {    // example netCDF specification in CDL
+
+dimensions:
+time = 5 ;
+
+variables:
+  int     time(time);
+
+  time:units = "seconds";
+
+group instrument {
+
+dimensions:
+  lat = 10, lon = 5 ;
+
+variables:
+  int     lat(lat), lon(lon);
+  int     rh(time,lat,lon);
+
+  lat:units = "degrees_north";
+  lon:units = "degrees_east";
+  rh:_FillValue = -1;
+
+  :measurement_platform = "aircraft"
+}
+group model {
+
+dimensions:
+  lat = 17, lon = 9 ;
+
+variables:
+  int     lat(lat), lon(lon) ;
+  int     rh(time,lat,lon);
+
+  lat:units = "degrees_north";
+  lon:units = "degrees_east";
+  rh:_FillValue = -1;
+  
+  :measurement_platform = "global circulation model"
+}
+
+}</pre>
+</div>
+</div>
+<div class="section" id="degenerate-netcdf4-semantic-group">
+<h2>5.1.3. Degenerate netCDF4 Semantic Group<a class="headerlink" href="#degenerate-netcdf4-semantic-group" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>netcdf foo {    // example netCDF specification in CDL
+
+dimensions:
+time = 5 ;
+
+variables:
+  int     time(time);
+
+  time:units = "seconds";
+
+group instrument {
+
+dimensions:
+  lat = 10, lon = 5 ;
+
+variables:
+  int     lat(lat), lon(lon);
+  int     rh(time,lat,lon);
+
+  lat:units = "degrees_north";
+  lon:units = "degrees_east";
+  rh:_FillValue = -1;
+
+  :measurement_platform = "aircraft"
+  :container_type = 'simple'
+}
+group model {
+
+dimensions:
+  lat = 17, lon = 9 ;
+
+variables:
+  int     lat(lat), lon(lon) ;
+  int     rh(time,lat,lon);
+
+  lat:units = "degrees_north";
+  lon:units = "degrees_east";
+  rh:_FillValue = -1;
+  
+  :measurement_platform = "global circulation model"
+  :container_type = 'simple'
+}
+
+}</pre>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">5. Example Data Sets</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="uncert.html">5.2. Uncertainty</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, Mark Hedley.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,230 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>5.2. Uncertainty &mdash; NetCDF Containers 1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/theme_extras.js"></script>
+    <link rel="top" title="NetCDF Containers 1 documentation" href="../index.html" />
+    <link rel="up" title="5. Example Data Sets" href="index.html" />
+    <link rel="next" title="5.3. Vector Field" href="vectorfield.html" />
+    <link rel="prev" title="5.1. Simple Container" href="simplegroup.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>NetCDF Containers 1 documentation</span></a></h1>
+        <h2 class="heading"><span>5.2. Uncertainty</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="simplegroup.html">5.1. Simple Container</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="vectorfield.html">5.3. Vector Field</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="uncertainty">
+<h1>5.2. Uncertainty<a class="headerlink" href="#uncertainty" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="netcdf3-encoding">
+<h2>5.2.1. NetCDF3 Encoding<a class="headerlink" href="#netcdf3-encoding" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>netcdf ssl {
+
+dimensions:
+  lat = 180 ;
+  lon = 360 ;
+  time = 11 ;
+  time_bnds = 2 ;
+
+variables:
+  sst_collection ;
+      sst_collection:container_type = " http://www.uncertml.org/statistics/statistics-collection"
+      sst_collection:container_members = "total_uncert uncorr_sd synopcorr_sd system_err best_estimate" ;
+      sst_collection:base_phenomenon = "sea_surface_temperature" ;
+      sst_collection:base_units = 'K' ;
+
+  total_uncert ;
+      total_uncert:container_type = "http://www.uncertml.org/statistics/standard-deviation" ;
+      total_uncert:sample_variable = "time" ;
+      total_uncert:container_members = "total_uncert_data" ;
+      total_uncert:comment = " total estimated error distribution (non-systematic) ;
+
+  uncorr_sd ;
+      uncorr_sd:container_type = "http://www.uncertml.org/statistics/standard-deviation" ;
+      uncorr_sd:sample_variable = "time" ;
+      uncorr_sd:container_members = "uncorr_sd_data" ;
+      uncorr_sd:comment = "uncorrelated effects (instrument noise, sampling uncertainty)" ;
+
+  synopcorr_sd ;
+      synopcorr_sd:container_type = "http://www.uncertml.org/statistics/standard-deviation" ;
+      synopcorr_sd:sample_variable = "time" ;
+      synopcorr_sd:container_members = "synopcorr_sd_data" ;
+      synopcorr_sd:comment = "synoptically-correlated effects (due to retrieval errors associated with large weather systems)" ;
+
+  system_err ;
+      system_err:container_type = "http://www.uncertml.org/statistics/standard-deviation" ;
+      system_err:sample_variable = "time" ;
+      system_err:container_members = "system_err_data" ;
+      system_err:comment = "Uncertain systematic errors (i.e. unknown biases due to the inversion process)" ;
+
+  best_estimate ;
+      best_estimate:container_type = "http://www.uncertml.org/statistics/mean" ;
+      best_estimate:sample_variable = "time" ;
+      best_estimate:container_members = "best_estimate_data" ;
+      best_estimate:comment = "best estimate" ;
+
+
+  total_uncert_data(time, lat, lon) ;
+
+  uncorr_sd_data(time, lat, lon)  ;
+
+  synopcorr_sd_data(time, lat, lon)  ;
+
+  system_err_data(time, lat, lon)  ;
+
+  best_estimate_data(time, lat, lon)  ;
+
+  lat(lat) ;
+
+  lon(lon) ;
+
+  time(time) ;
+  
+  }</pre>
+</div>
+</div>
+<div class="section" id="netcdf4-encoding">
+<h2>5.2.2. NetCDF4 Encoding<a class="headerlink" href="#netcdf4-encoding" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>netcdf ssl {
+
+dimensions:
+  lat = 180 ;
+  lon = 360 ;
+  time = 11 ;
+  time_bnds = 2 ;
+
+group sst_stats {
+      
+      variables:
+      
+      lat(lat) ;
+      lon(lon) ;
+      time(time) ;
+
+      :container_type = " http://www.uncertml.org/statistics/statistics-collection"
+      :base_phenomenon = "sea_surface_temperature" ;
+      :base_units = 'K' ;
+
+  group total_uncert {
+      
+      variables:
+      
+      total_uncert_data(time, lat, lon) ;
+
+      :container_type = "http://www.uncertml.org/statistics/standard-deviation" ;
+      :sample_variable = "time" ;
+      :comment = " total estimated error distribution (non-systematic) ;
+      
+      }
+
+  group uncorr_sd {
+  
+      variables:
+      
+      uncorr_sd_data(time, lat, lon)  ;
+      
+      container_type = "http://www.uncertml.org/statistics/standard-deviation" ;
+      sample_variable = "time" ;
+      comment = "uncorrelated effects (instrument noise, sampling uncertainty)" ;
+      
+      }
+
+  group synopcorr_sd {
+      
+      variables:
+      
+      synopcorr_sd_data(time, lat, lon)  ;
+      
+      :container_type = "http://www.uncertml.org/statistics/standard-deviation" ;
+      :sample_variable = "time" ;
+      :comment = "synoptically-correlated effects (due to retrieval errors associated with large weather systems)" ;
+      
+      }
+
+  group system_err {
+      
+      variables:
+      
+      system_err_data(time, lat, lon)  ;
+      
+      :container_type = "http://www.uncertml.org/statistics/standard-deviation" ;
+      :sample_variable = "time" ;
+      :comment = "Uncertain systematic errors (i.e. unknown biases due to the inversion process)" ;
+      
+      }
+
+  group best_estimate {
+      
+      variables:
+      
+      best_estimate_data(time, lat, lon)  ;
+      
+      :container_type = "http://www.uncertml.org/statistics/mean" ;
+      :sample_variable = "time" ;
+      :comment = "best estimate" ;
+      
+      }
+  }
+
+}</pre>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="simplegroup.html">5.1. Simple Container</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="vectorfield.html">5.3. Vector Field</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, Mark Hedley.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

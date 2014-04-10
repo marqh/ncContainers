@@ -1,0 +1,144 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>5.3. Vector Field &mdash; NetCDF Containers 1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/print.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/theme_extras.js"></script>
+    <link rel="top" title="NetCDF Containers 1 documentation" href="../index.html" />
+    <link rel="up" title="5. Example Data Sets" href="index.html" />
+    <link rel="prev" title="5.2. Uncertainty" href="uncert.html" /> 
+  </head>
+  <body>
+      <div class="header"><h1 class="heading"><a href="../index.html">
+          <span>NetCDF Containers 1 documentation</span></a></h1>
+        <h2 class="heading"><span>5.3. Vector Field</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="uncert.html">5.2. Uncertainty</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="vector-field">
+<h1>5.3. Vector Field<a class="headerlink" href="#vector-field" title="Permalink to this headline">¶</a></h1>
+<p>A vector field may be represented by a set of scalar fields with clearly defined roles defining these scalar fields as components of the vector field.</p>
+<p>Each scalar field may be defdined using well known CF semantics, for example the CF conventions for NetCDF files.</p>
+<div class="section" id="netcdf3-encoding">
+<h2>5.3.1. NetCDF3 Encoding<a class="headerlink" href="#netcdf3-encoding" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>netcdf vfield {
+
+dimensions:
+lat = 10, lon = 5, time = unlimited;
+
+
+
+variables:
+  int     lat(lat), lon(lon), time(time);
+  float     dxaptg(time,lat,lon);
+  float     dyaptg(time,lat,lon);
+  float     daptmagg(time,lat,lon);
+  float     daptdirg(time,lat,lon);
+  int       vectorfield ;
+
+  lat:units = "degrees_north";
+  lon:units = "degrees_east";
+  time:units = "seconds";
+  rh:_FillValue = -1;
+  
+  vectorfield:container_type = "http://vectorfieldsemantics.notauri.net/vectorfield" ;
+  vectorfield:container_members = "dxapt dyapt daptmag daptdir"
+  vectorfield:container_role_i_component = dxaptg ;
+  vectorfield:container_role_j_component = dyaptg ;
+  vectorfield:container_role_magnitude = daptmagg ;
+  vectorfield:container_role_direction = daptdirg ;
+  vectorfield:base_phenomenon = 'air_potential_temperature' ;
+  vectorfield:base_units = 'K'
+  
+}
+
+}</pre>
+</div>
+</div>
+<div class="section" id="netcdf4-encoding">
+<h2>5.3.2. NetCDF4 Encoding<a class="headerlink" href="#netcdf4-encoding" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>netcdf vfield {
+
+dimensions:
+lat = 10, lon = 5, time = unlimited;
+
+group vectorfield {
+
+variables:
+  int     lat(lat), lon(lon), time(time);
+  float     dxaptg(time,lat,lon);
+  float     dyaptg(time,lat,lon);
+  float     daptmagg(time,lat,lon);
+  float     daptdirg(time,lat,lon);
+
+  lat:units = "degrees_north";
+  lon:units = "degrees_east";
+  time:units = "seconds";
+  rh:_FillValue = -1;
+  
+  :container_type = "http://vectorfieldsemantics.notauri.net/vectorfield" ;
+  :container_role_i_component = dxaptg ;
+  :container_role_j_component = dyaptg ;
+  :container_role_magnitude = daptmagg ;
+  :container_role_direction = daptdirg ;
+  :base_phenomenon = 'air_potential_temperature' ;
+  :base_units = 'K'
+  
+}
+
+}</pre>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="uncert.html">5.2. Uncertainty</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014, Mark Hedley.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
