@@ -60,7 +60,11 @@
 <p>It is highly recommended that the &#8216;value&#8217; of the container_type attribute is a URI, providing explicit resolution of the associated semantics for named roles and attributes.  <cite>container_type</cite> identifiers may be used to register a new container type and reference associated semantics.</p>
 <p>NetCDF semantic containers does not define extended semantics for defined types, it merely provides the mechanism for others to do so.  A <cite>simple</cite> type is defined (hopefully this will be defined by a netCDF semantic containers owned URI in the future). This defines no further controlled semantics attributes.</p>
 <p>Communities may define their own <cite>container_type</cite> values and within this scope define a controlled set of semantics for attribute names and allowable values to allow rich semantic content to be provided.</p>
-<p>A container type may define container roles.  These are attribute names which enable a particular member to be explicitly linked via a named role, with associcated semantics, defined by the container type.  Container roles link directly to variables within the scope of the container.  All container role attribute names must be prepended with the string <cite>container_role_</cite> to enable identification by software.</p>
+<p>A container type may define container roles.  These are attribute names which enable a particular member to be explicitly linked via a named role, with associated semantics, defined by the container type.  Container roles link directly to variables within the scope of the container.  All container role attribute names must be prepended with the string <cite>container_role_</cite> to enable identification by software.</p>
+</div>
+<div class="section" id="exclusive-containment">
+<h2>2.2. Exclusive Containment<a class="headerlink" href="#exclusive-containment" title="Permalink to this headline">¶</a></h2>
+<p>Semantic containers set up an exclusive relationship within a data set.  A variable which is contained by one container may not also be contained by another container; the relations are exclusive.</p>
 </div>
 </div>
 

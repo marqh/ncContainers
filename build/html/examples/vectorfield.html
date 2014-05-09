@@ -51,7 +51,7 @@
   <div class="section" id="vector-field">
 <h1>5.3. Vector Field<a class="headerlink" href="#vector-field" title="Permalink to this headline">¶</a></h1>
 <p>A vector field may be represented by a set of scalar fields with clearly defined roles defining these scalar fields as components of the vector field.</p>
-<p>Each scalar field may be defdined using well known CF semantics, for example the CF conventions for NetCDF files.</p>
+<p>Each scalar field may be defined using well known CF semantics, for example the CF conventions for NetCDF files.</p>
 <div class="section" id="netcdf3-encoding">
 <h2>5.3.1. NetCDF3 Encoding<a class="headerlink" href="#netcdf3-encoding" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><pre>netcdf vfield {
@@ -62,26 +62,29 @@ lat = 10, lon = 5, time = unlimited;
 
 
 variables:
-  int     lat(lat), lon(lon), time(time);
+  float lat(lat) ;
+    lat:units = "degrees_north";
+  
+  float lon(lon) ;
+    lon:units = "degrees_east";
+  
+  float time(time);
+    time:units = "seconds";
+  
   float     dxaptg(time,lat,lon);
   float     dyaptg(time,lat,lon);
   float     daptmagg(time,lat,lon);
   float     daptdirg(time,lat,lon);
-  int       vectorfield ;
 
-  lat:units = "degrees_north";
-  lon:units = "degrees_east";
-  time:units = "seconds";
-  rh:_FillValue = -1;
-  
-  vectorfield:container_type = "http://vectorfieldsemantics.notauri.net/vectorfield" ;
-  vectorfield:container_members = "dxapt dyapt daptmag daptdir"
-  vectorfield:container_role_i_component = dxaptg ;
-  vectorfield:container_role_j_component = dyaptg ;
-  vectorfield:container_role_magnitude = daptmagg ;
-  vectorfield:container_role_direction = daptdirg ;
-  vectorfield:base_phenomenon = 'air_potential_temperature' ;
-  vectorfield:base_units = 'K'
+  int       vectorfield ;
+    vectorfield:container_type = "http://vectorfieldsemantics.notauri.net/vectorfield" ;
+    vectorfield:container_members = "dxapt dyapt daptmag daptdir"
+    vectorfield:container_role_i_component = dxaptg ;
+    vectorfield:container_role_j_component = dyaptg ;
+    vectorfield:container_role_magnitude = daptmagg ;
+    vectorfield:container_role_direction = daptdirg ;
+    vectorfield:base_phenomenon = 'air_potential_temperature horizontal gradient' ;
+    vectorfield:base_units = 'K'
   
 }
 
@@ -98,17 +101,20 @@ lat = 10, lon = 5, time = unlimited;
 group vectorfield {
 
 variables:
-  int     lat(lat), lon(lon), time(time);
+  float lat(lat) ;
+    lat:units = "degrees_north";
+  
+  float lon(lon) ;
+    lon:units = "degrees_east";
+  
+  float time(time) ;
+    time:units = "seconds";
+  
   float     dxaptg(time,lat,lon);
   float     dyaptg(time,lat,lon);
   float     daptmagg(time,lat,lon);
   float     daptdirg(time,lat,lon);
 
-  lat:units = "degrees_north";
-  lon:units = "degrees_east";
-  time:units = "seconds";
-  rh:_FillValue = -1;
-  
   :container_type = "http://vectorfieldsemantics.notauri.net/vectorfield" ;
   :container_role_i_component = dxaptg ;
   :container_role_j_component = dyaptg ;

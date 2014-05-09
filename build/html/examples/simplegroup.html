@@ -60,35 +60,46 @@
 <div class="highlight-python"><pre>netcdf foo {    // example netCDF specification in CDL
 
 dimensions:
-instrument___lat = 10, instrument_lon = 5, time = unlimited
-     model___lat = 17, model_lon = 9
+     instrument___lat = 10 ;
+     instrument___lon = 5 ;
+     model___lat = 17 ;
+     model___lon = 9 ;
+     time = 5 ;
 variables:
+  float time(time) ;
+    time:units = "seconds";
+           
   int instrument ;
-  time(time)
-  int     instrument___lat(instrument___lat), instrument___lon(instrument___lon);
-  int     instrument___rh(time,instrument___lat,instrument___lon);
+    instrument:measurement_platform = "aircraft" ;
+    instrument:container_type = 'simple' ;
+    instrument:container_members = "instrument___lat instrument___lon instrument___time" ;
+  
+  float instrument___lon(instrument___lon);
+    instrument___lon:units = "degrees_east";
+    
+  float instrument___lat(instrument___lat) ;
+    instrument___lat:units = "degrees_north";
+    
+  float instrument___rh(time,instrument___lat,instrument___lon);
+    instrument___rh:long_name = "relative humidity of air"
+    instrument___rh:_FillValue = -1;
 
-  instrument___lat:units = "degrees_north";
-  instrument___lon:units = "degrees_east";
-  time:units = "seconds";
-  instrument___rh:_FillValue = -1;
-
-  instrument:measurement_platform = "aircraft" ;
-  instrument:container_type = 'simple' ;
-  instrument:container_members = "instrument___lat instrument___lon instrument___time" ;
 
   int model ;
-
-  int     model___lat(model___lat), model___lon(model___lon);
-  int     model___rh(time,model_lat,model_lon);
-
-  model___lat:units = "degrees_north";
-  model___lon:units = "degrees_east";
-  model___rh:_FillValue = -1;
+    model:measurement_platform = "global circulation model" ;
+    model:container_type = 'simple' ;
+    model:container_members = "model___lat model___lon model___time" ;
+       
+  float model___lat(model___lat) ;
+    model___lat:units = "degrees_north";
   
-  model:measurement_platform = "global circulation model" ;
-  model:container_type = 'simple' ;
-  model:container_members = "model___lat model___lon model___time" ;
+  float model___lon(model___lon) ;
+    model___lon:units = "degrees_east";
+  
+  float model___rh(time,model_lat,model_lon);
+    model___rh:_FillValue = -1;
+    model___rh:long_name = "relative humidity of air"
+  
 
 }</pre>
 </div>
@@ -101,9 +112,8 @@ dimensions:
 time = 5 ;
 
 variables:
-  int     time(time);
-
-  time:units = "seconds";
+  float time(time);
+    time:units = "seconds";
 
 group instrument {
 
@@ -111,12 +121,15 @@ dimensions:
   lat = 10, lon = 5 ;
 
 variables:
-  int     lat(lat), lon(lon);
-  int     rh(time,lat,lon);
-
-  lat:units = "degrees_north";
-  lon:units = "degrees_east";
-  rh:_FillValue = -1;
+  float lat(lat) ;
+    lat:units = "degrees_north";
+  
+  float lon(lon) ;
+    lon:units = "degrees_east";
+  
+  float rh(time,lat,lon);
+    rh:_FillValue = -1;
+    rh:long_name = "relative humidity of air"
 
   :measurement_platform = "aircraft"
 }
@@ -126,12 +139,15 @@ dimensions:
   lat = 17, lon = 9 ;
 
 variables:
-  int     lat(lat), lon(lon) ;
-  int     rh(time,lat,lon);
-
-  lat:units = "degrees_north";
-  lon:units = "degrees_east";
-  rh:_FillValue = -1;
+  float lat(lat) ;
+    lat:units = "degrees_north";
+  
+  float lon(lon) ;
+    lon:units = "degrees_east";
+  
+  float rh(time,lat,lon);
+    rh:_FillValue = -1;
+    rh:long_name = "relative humidity of air"
   
   :measurement_platform = "global circulation model"
 }
@@ -147,9 +163,8 @@ dimensions:
 time = 5 ;
 
 variables:
-  int     time(time);
-
-  time:units = "seconds";
+  float     time(time);
+    time:units = "seconds";
 
 group instrument {
 
@@ -157,12 +172,15 @@ dimensions:
   lat = 10, lon = 5 ;
 
 variables:
-  int     lat(lat), lon(lon);
-  int     rh(time,lat,lon);
-
-  lat:units = "degrees_north";
-  lon:units = "degrees_east";
-  rh:_FillValue = -1;
+  float lat(lat) ;
+    lat:units = "degrees_north";
+  
+  float lon(lon) ;
+    lon:units = "degrees_east";
+  
+  float rh(time,lat,lon) ;
+    rh:_FillValue = -1;
+    rh:long_name = "relative humidity of air"
 
   :measurement_platform = "aircraft"
   :container_type = 'simple'
@@ -173,12 +191,15 @@ dimensions:
   lat = 17, lon = 9 ;
 
 variables:
-  int     lat(lat), lon(lon) ;
-  int     rh(time,lat,lon);
-
-  lat:units = "degrees_north";
-  lon:units = "degrees_east";
-  rh:_FillValue = -1;
+  float lat(lat) ;
+    lat:units = "degrees_north";
+  
+  float lon(lon) ;
+    lon:units = "degrees_east";
+  
+  float rh(time,lat,lon);
+    rh:_FillValue = -1;
+    rh:long_name = "relative humidity of air"
   
   :measurement_platform = "global circulation model"
   :container_type = 'simple'
