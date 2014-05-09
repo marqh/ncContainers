@@ -19,26 +19,29 @@ NetCDF3 Encoding
      
      
      variables:
-       int     lat(lat), lon(lon), time(time);
+       float lat(lat) ;
+         lat:units = "degrees_north";
+       
+       float lon(lon) ;
+         lon:units = "degrees_east";
+       
+       float time(time);
+         time:units = "seconds";
+       
        float     dxaptg(time,lat,lon);
        float     dyaptg(time,lat,lon);
        float     daptmagg(time,lat,lon);
        float     daptdirg(time,lat,lon);
+
        int       vectorfield ;
-     
-       lat:units = "degrees_north";
-       lon:units = "degrees_east";
-       time:units = "seconds";
-       rh:_FillValue = -1;
-       
-       vectorfield:container_type = "http://vectorfieldsemantics.notauri.net/vectorfield" ;
-       vectorfield:container_members = "dxapt dyapt daptmag daptdir"
-       vectorfield:container_role_i_component = dxaptg ;
-       vectorfield:container_role_j_component = dyaptg ;
-       vectorfield:container_role_magnitude = daptmagg ;
-       vectorfield:container_role_direction = daptdirg ;
-       vectorfield:base_phenomenon = 'air_potential_temperature' ;
-       vectorfield:base_units = 'K'
+         vectorfield:container_type = "http://vectorfieldsemantics.notauri.net/vectorfield" ;
+         vectorfield:container_members = "dxapt dyapt daptmag daptdir"
+         vectorfield:container_role_i_component = dxaptg ;
+         vectorfield:container_role_j_component = dyaptg ;
+         vectorfield:container_role_magnitude = daptmagg ;
+         vectorfield:container_role_direction = daptdirg ;
+         vectorfield:base_phenomenon = 'air_potential_temperature horizontal gradient' ;
+         vectorfield:base_units = 'K'
        
      }
      
@@ -58,17 +61,20 @@ NetCDF4 Encoding
      group vectorfield {
      
      variables:
-       int     lat(lat), lon(lon), time(time);
+       float lat(lat) ;
+         lat:units = "degrees_north";
+       
+       float lon(lon) ;
+         lon:units = "degrees_east";
+       
+       float time(time) ;
+         time:units = "seconds";
+       
        float     dxaptg(time,lat,lon);
        float     dyaptg(time,lat,lon);
        float     daptmagg(time,lat,lon);
        float     daptdirg(time,lat,lon);
-     
-       lat:units = "degrees_north";
-       lon:units = "degrees_east";
-       time:units = "seconds";
-       rh:_FillValue = -1;
-       
+
        :container_type = "http://vectorfieldsemantics.notauri.net/vectorfield" ;
        :container_role_i_component = dxaptg ;
        :container_role_j_component = dyaptg ;
