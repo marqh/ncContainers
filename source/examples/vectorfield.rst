@@ -32,11 +32,11 @@ NetCDF3 Encoding
        rh:_FillValue = -1;
        
        vectorfield:container_type = "http://vectorfieldsemantics.notauri.net/vectorfield" ;
-       vectorfield:members = "dxapt dyapt daptmag daptdir"
-       vectorfield:i_component = dxaptg ;
-       vectorfield:j_component = dyaptg ;
-       vectorfield:magnitude = daptmagg ;
-       vectorfield:direction = daptdirg ;
+       vectorfield:container_members = "dxapt dyapt daptmag daptdir"
+       vectorfield:container_role_i_component = dxaptg ;
+       vectorfield:container_role_j_component = dyaptg ;
+       vectorfield:container_role_magnitude = daptmagg ;
+       vectorfield:container_role_direction = daptdirg ;
        vectorfield:base_phenomenon = 'air_potential_temperature' ;
        vectorfield:base_units = 'K'
        
@@ -70,10 +70,10 @@ NetCDF4 Encoding
        rh:_FillValue = -1;
        
        :container_type = "http://vectorfieldsemantics.notauri.net/vectorfield" ;
-       :i_component = dxaptg ;
-       :j_component = dyaptg ;
-       :magnitude = daptmagg ;
-       :direction = daptdirg ;
+       :container_role_i_component = dxaptg ;
+       :container_role_j_component = dyaptg ;
+       :container_role_magnitude = daptmagg ;
+       :container_role_direction = daptdirg ;
        :base_phenomenon = 'air_potential_temperature' ;
        :base_units = 'K'
        

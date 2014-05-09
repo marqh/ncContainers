@@ -17,6 +17,12 @@ Variable Names
 
 The variable name of a container variable name is a convenient string to use for disambiguation of variable names in netCDF3 files.  The containing variable's name may be prepended to the contained variable's name, linked by a triple underscore `___`.
 
+Dimension Names
+''''''''''''''
+
+Similarly, the variable name of a container variable name is a convenient string to use for disambiguation of dimension names in netCDF3 files.  The containing variable's name may be prepended to the contained dimension's name, linked by a triple underscore `___`.
+
+
 Degeneracy
 ----------
 
