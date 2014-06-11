@@ -29,10 +29,10 @@ Semantic Container NetCDF3 Classic
          instrument:container_members = "instrument___lat instrument___lon instrument___time" ;
        
        float instrument___lon(instrument___lon);
-         instrument___lat:units = "degrees_north";
+         instrument___lon:units = "degrees_east";
 	 
        float instrument___lat(instrument___lat) ;
-         instrument___lon:units = "degrees_east";
+         instrument___lat:units = "degrees_north";
 	 
        float instrument___rh(time,instrument___lat,instrument___lon);
          instrument___rh:long_name = "relative humidity of air"
