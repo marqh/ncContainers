@@ -66,11 +66,11 @@ dimensions:
   time_bnds = 2 ;
 
 variables:
-  float sst_collection ;
-      sst_collection:container_type = " http://www.uncertml.org/statistics/statistics-collection"
-      sst_collection:container_members = "total_uncert uncorr_sd synopcorr_sd system_err best_estimate" ;
-      sst_collection:base_phenomenon = "sea_surface_temperature" ;
-      sst_collection:base_units = 'K' ;
+  float sst_stats ;
+      sst_stats:container_type = " http://www.uncertml.org/statistics/statistics-collection"
+      sst_stats:container_members = "total_uncert uncorr_sd synopcorr_sd system_err best_estimate" ;
+      sst_stats:base_phenomenon = "sea_surface_temperature" ;
+      sst_stats:base_units = 'K' ;
 
   float total_uncert ;
       total_uncert:container_type = "http://www.uncertml.org/statistics/standard-deviation" ;
