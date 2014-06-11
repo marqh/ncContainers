@@ -1,6 +1,10 @@
 Uncertainty
 ===========
 
+Containers enable semantics from particular domains to be used to define metadata characteristics.  The containers enable the semantics from one convention to be used along with the semantics of another convention with clear separation.
+
+For example the semantics defined by UncertML may be used by containers which contain data sets conforming to the CF conventions for NetCDF files.
+
 NetCDF3 Encoding
 ----------------
 

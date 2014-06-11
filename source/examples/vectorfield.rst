@@ -3,7 +3,7 @@ Vector Field
 
 A vector field may be represented by a set of scalar fields with clearly defined roles defining these scalar fields as components of the vector field.
 
-Each scalar field may be defdined using well known CF semantics, for example the CF conventions for NetCDF files.
+Each scalar field may be defined using well known CF semantics, for example the CF conventions for NetCDF files.
 
 NetCDF3 Encoding
 ----------------

@@ -20,8 +20,11 @@ NetCDF semantic containers does not define extended semantics for defined types,
 
 Communities may define their own `container_type` values and within this scope define a controlled set of semantics for attribute names and allowable values to allow rich semantic content to be provided.
 
-A container type may define container roles.  These are attribute names which enable a particular member to be explicitly linked via a named role, with associcated semantics, defined by the container type.  Container roles link directly to variables within the scope of the container.  All container role attribute names must be prepended with the string `container_role_` to enable identification by software.
+A container type may define container roles.  These are attribute names which enable a particular member to be explicitly linked via a named role, with associated semantics, defined by the container type.  Container roles link directly to variables within the scope of the container.  All container role attribute names must be prepended with the string `container_role_` to enable identification by software.
 
+Exclusive Containment
+---------------------
 
+Semantic containers set up an exclusive relationship within a data set.  A variable which is contained by one container may not also be contained by another container; the relations are exclusive.
 
 
